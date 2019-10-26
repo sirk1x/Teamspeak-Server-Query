@@ -1,8 +1,7 @@
 # MyLittleTeamspeakServerQuery
 ServerQuery utilizing the tcp-layer to query general teamspeak server informations such as the server info, clients online, channels and handles the downloading of icons from the server.
 
-Originally planned to be used as a live view for a website.
-
+Utilizes byte manipulation to handle incoming messages, if you are interested you might want to check out the parser.cs
 
 ## Usage
 
