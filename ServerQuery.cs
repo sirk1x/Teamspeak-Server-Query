@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+//using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -169,7 +169,7 @@ namespace MyLittleTeamspeakServerQuery
                         case QueryAction.QueryDisconnect:
                             QuerySuccess = true;
 
-                            File.WriteAllText(current_path + "setings.json", JsonConvert.SerializeObject(ServerIcons));
+                            //File.WriteAllText(current_path + "setings.json", JsonConvert.SerializeObject(ServerIcons));
 
                             return;
                         default:
