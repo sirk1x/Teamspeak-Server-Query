@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -64,15 +64,15 @@ namespace MyLittleTeamspeakServerQuery
 
         private string icoPth = "";
 
-        public ServerQuery(string hostname, ushort port, ushort queryport, string cachePath, out string iconPath)
+        public ServerQuery(string hostname, ushort port, ushort queryport, string IconDownloadPath)
         {
             try
             {
                 _hostname = hostname;
                 _port = port;
                 _queryport = queryport;
-                icoPth = cachePath + Guid.NewGuid().ToString();
-                iconPath = icoPth;
+                icoPth = IconDownloadPath;
+                //iconPath = icoPth;
                 if (PingHost(_hostname, out ping_triptime))
                 {
                     //Console.WriteLine("Ping was successfull " + ping_triptime.ToString());
@@ -137,9 +137,9 @@ namespace MyLittleTeamspeakServerQuery
                         case QueryAction.QueryIcons:
                             uint[] _ids = GetIconIds();
                             uint randomClientId = (uint)_randomForFileClientTransferId.Next(1, 10000);
-                            if (!cachePath.EndsWith(@"\"))
-                                cachePath += @"\";
-                            current_path = cachePath + @"data\" + _hostname + port + queryport + @"\";
+                            if (!IconDownloadPath.EndsWith(@"\"))
+                                IconDownloadPath += @"\";
+                            current_path = IconDownloadPath + @"data\" + _hostname + port + queryport + @"\";
                             if (!Directory.Exists(current_path))
                                 Directory.CreateDirectory(current_path);
                             for (int i = 0; i < _ids.Length; i++)
@@ -193,11 +193,9 @@ namespace MyLittleTeamspeakServerQuery
                 if (e.GetType().IsAssignableFrom(typeof(SocketException)))
                 {
                     _errors.Add(new Dataset.Error { id = 10061, msg = "Connection Refused. Is the server online?" });
-                    iconPath = null;
                     return;
                 }
                 _errors.Add(new Dataset.Error { id = 401, msg = "Internal Server Error" });
-                iconPath = null;
                 return;
             }
 
